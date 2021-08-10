@@ -18,10 +18,12 @@ gpio.setup(LED_PIN, gpio.DIR_OUT, () => {
 
     app.get('/led/on', (req, res) => {
         if (!checked) gpio.write(LED_PIN, true);
+        res.send('led flush!!!!')
     })
 
     app.get('/led/off', (req, res) => {
         if (checked) gpio.write(LED_PIN, false);
+        res.send('led finish.')
     })
     
     app.listen(port, () => {
