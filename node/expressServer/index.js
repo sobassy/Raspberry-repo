@@ -6,6 +6,7 @@ var gpio = require('rpi-gpio');
 
 const LED_PIN = 40; // 40番ピン（GPIO40ではない、GPIO21）
 
+var checked = false;
 
 // LED ピンをOUT方向に設定
 gpio.setup(LED_PIN, gpio.DIR_OUT, () => {
@@ -16,11 +17,11 @@ gpio.setup(LED_PIN, gpio.DIR_OUT, () => {
     })
 
     app.get('/led/on', (req, res) => {
-        gpio.write(LED_PIN, true);
+        if (!checked) gpio.write(LED_PIN, true);
     })
 
     app.get('/led/off', (req, res) => {
-        gpio.write(LED_PIN, true);
+        if (checked) gpio.write(LED_PIN, false);
     })
     
     app.listen(port, () => {
