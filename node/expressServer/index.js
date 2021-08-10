@@ -1,6 +1,6 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 
 var gpio = require('rpi-gpio');
 
@@ -13,20 +13,30 @@ gpio.setup(LED_PIN, gpio.DIR_OUT, () => {
 
     // API start
     app.get('/', (req, res) => {
-        res.send('Welcome to Nogata Education API !!')
+        res.send('Welcome to Nogata Education API !!');
     })
 
     app.get('/led/on', (req, res) => {
-        if (!checked) gpio.write(LED_PIN, true);
-        res.send('led flush!!!!')
+        if (!checked) {
+            gpio.write(LED_PIN, true);
+            res.send('led flush!!!!');
+            checked = true;
+        } else {
+            res.send('led already flushed.');
+        }
     })
 
     app.get('/led/off', (req, res) => {
-        if (checked) gpio.write(LED_PIN, false);
-        res.send('led finish.')
+        if (checked) {
+            gpio.write(LED_PIN, false);
+            res.send('led finish.');
+            checked = false;
+        } else {
+            res.send('led already not flush.')
+        }
     })
     
     app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`)
+        console.log(`Example app listening at http://localhost:${port}`);
     })
 });
