@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(12, GPIO.OUT)
 
-p = GPIO.PWM(12, 50)  # channel=12 frequency=500Hz
+p = GPIO.PWM(12, 50)  # channel=12 frequency=50Hz
 p.start(0)
 
 @app.route("/")
